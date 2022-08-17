@@ -13,6 +13,7 @@ public class SpringSecurityApplication {
 		SpringApplication.run(SpringSecurityApplication.class, args);
 	}
 
+	// Password encoder bean to be used.. Probably should have been declared as a bean in another config file.
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

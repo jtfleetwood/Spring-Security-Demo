@@ -23,13 +23,16 @@ import java.util.Collection;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Slf4j
+// Filter that checks for valid bearer token (encoded JWT) included in Authorization header for all responses (except /login and token/refresh).
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // Checks if request is either attempting to login or refresh a token. Would not need to check for valid bearer token in that case.
         if(request.getServletPath().equals("/login") || request.getServletPath().equals("/api/v1/users/token/refresh/**")) {
             filterChain.doFilter(request, response);
         }
 
+        // Checking for valid bearer token below.
         else {
             String authorizationHeader = request.getHeader("Authorization");
 
@@ -45,11 +48,13 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<SimpleGrantedAuthority>());
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                    // Sending this request and response to the next filter in the filter chain.
                     filterChain.doFilter(request, response);
                 }
 
+                // If error with included bearer token, then sending forbidden response to access specific resource.
                 catch(Exception exception) {
-                    log.debug("Error logging in" + exception.getMessage());
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
                 }

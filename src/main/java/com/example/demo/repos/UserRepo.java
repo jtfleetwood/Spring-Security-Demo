@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// Interacts with embedded DB.
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);

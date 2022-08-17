@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+// Bootstrapping data for testing...
 public class BootstrapData implements CommandLineRunner {
     private final UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
+        // Two user accounts to test at login endpoint.
         User newUser1 = new User();
         newUser1.setPassword("jt1234");
         newUser1.setName("JT");
