@@ -27,6 +27,8 @@ General information:
 - If you're interested as to how JWT's are encoded and what their purpose is, go to jwt.io and paste your access token
 - Passwords are encrypted upon sending user information to the database.
 
-THIS IS JUST A DEMO, NONE OF THIS IMPLEMENTATION REPRESENTS ANYTHING I WOULD PUT INTO PRODUCTION.
+*THIS IS JUST A DEMO, NONE OF THIS IMPLEMENTATION REPRESENTS ANYTHING I WOULD PUT INTO PRODUCTION.* 
+
+The main goal of this project was to quickly demonstrate a working implementation of Spring Security, this does not consider best practices or design patterns by any means.
 
 
